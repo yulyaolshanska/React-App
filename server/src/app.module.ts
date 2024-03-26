@@ -12,11 +12,11 @@ dotenvConfig({ path: '.env' });
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: `${process.env.DATABASE_HOST}`,
+      host: "localhost",
       port: 5432,
-      username: `${process.env.DATABASE_USERNAME}`,
+      username: 'postgres',
       password: 'prostoparol',
-      database: `${process.env.DATABASE_NAME}`,
+      database: 'postgres',
       entities: [],
       synchronize: true,
     }),
