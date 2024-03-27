@@ -6,6 +6,7 @@ import { TaskListService } from './task-list.services';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TaskList])],
+  exports: [TypeOrmModule],
   controllers: [TaskListController],
   providers: [TaskListService],
 })
