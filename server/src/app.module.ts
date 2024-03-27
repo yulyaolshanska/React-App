@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskList } from './task-list/entities/task-list.entity';
 import { TaskListModule } from './task-list/task-list.module';
 import { config as dotenvConfig } from 'dotenv';
+import { TaskHistoryModule } from './task-history/task-history.module';
+import { TaskModule } from './tasks/tasks.module';
 
 dotenvConfig({ path: '.env' });
 
@@ -17,11 +19,13 @@ dotenvConfig({ path: '.env' });
       username: 'postgres',
       password: 'example',
       database: 'postgres',
-      entities: [TaskList],
+      // entities: [TaskList],
       synchronize: true,
       autoLoadEntities: true,
     }),
     TaskListModule,
+    TaskModule,
+    TaskHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
