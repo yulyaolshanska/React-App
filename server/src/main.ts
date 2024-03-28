@@ -7,6 +7,10 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  // app.use(cors());
+  app.enableCors({
+    origin: '*',
+  });
   const config = new DocumentBuilder()
     .setTitle('Task Board API')
     .setDescription('Task Board API description')
