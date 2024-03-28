@@ -15,32 +15,32 @@ export class CreateTaskDto {
 
   @ApiProperty()
   @IsOptional()
-  description?: string;
+  description: string;
 
   @ApiProperty()
   @IsOptional()
   @IsInt()
-  position?: number;
+  position: number;
 
   @ApiProperty()
   @IsOptional()
   @IsDateString()
-  created_at?: Date;
+  created_at: Date;
 
   @ApiProperty()
   @IsOptional()
   @IsInt()
-  columnId?: number;
+  columnId: number;
 
   @ApiProperty({ enum: Priority })
   @IsOptional()
   @IsEnum(Priority)
-  priority?: Priority;
+  priority: Priority;
 
   @ApiProperty()
   @IsOptional()
   @IsDateString()
-  due_date?: Date;
+  due_date: Date;
 }
 
 export class UpdateTaskDto extends CreateTaskDto {}

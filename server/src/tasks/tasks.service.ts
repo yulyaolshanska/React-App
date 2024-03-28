@@ -6,28 +6,49 @@ import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
 import { TaskHistoryService } from 'src/task-history/task-history.service';
 import { Priority } from 'src/constants/enums/priority.enum';
 import { TaskListService } from 'src/task-list/task-list.services';
+import { TaskList } from 'src/task-list/entities/task-list.entity';
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
+    @InjectRepository(TaskList)
+    private readonly taskListRepository: Repository<TaskList>,
     private readonly taskHistoryService: TaskHistoryService,
     private readonly taskListService: TaskListService,
   ) {}
 
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    const task = this.taskRepository.create(createTaskDto);
-    return this.taskRepository.save(task);
+    const { columnId, ...taskData } = createTaskDto;
+    const column = await this.taskListRepository.findOne({
+      where: { id: columnId },
+    });
+    if (!column) {
+      throw new Error(`TaskList with ID ${columnId} not found`);
+    }
+
+    let tasksInTargerColumn = await (
+      await this.taskRepository.find({ relations: ['column'] })
+    )
+      .filter((t: Task) => t.column.id == columnId)
+      .sort((prev: Task, curr: Task) => prev.position - curr.position);
+    let targetPos =
+      tasksInTargerColumn.length > 0 ? tasksInTargerColumn[0].position + 1 : 1;
+    taskData.position = targetPos;
+    const newTask = this.taskRepository.create({ ...taskData, column });
+
+    return this.taskRepository.save(newTask);
   }
 
   async getAllTasks(): Promise<Task[]> {
-    return this.taskRepository.find();
+    return this.taskRepository.find({ relations: ['column'] });
   }
 
   async getTaskById(id: number): Promise<Task> {
     return this.taskRepository.findOne({
       where: { id },
+      relations: ['column'],
     });
   }
 
@@ -64,14 +85,6 @@ export class TaskService {
     }
 
     if (oldColumnId !== updatedTask.column?.id) {
-      const newColumnIdString = updatedTask.column?.id.toString();
-      await this.taskHistoryService.logTaskMovement(
-        updatedTask.id,
-        'username',
-        newColumnIdString,
-      );
-    }
-    if (oldPosition !== updatedTask.position) {
       const taskList = await this.taskListService.getTaskListById(
         updatedTask.column?.id,
       );
