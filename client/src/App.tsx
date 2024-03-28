@@ -1,9 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  return <div></div>;
-}
+const HomePage = lazy(() => import("./pages/Home"));
+
+const App = () => {
+  return (
+    <Suspense fallback={<div></div>}>
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+      </Routes>
+    </Suspense>
+  );
+};
 
 export default App;
