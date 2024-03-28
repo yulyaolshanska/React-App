@@ -5,9 +5,6 @@ export class CreateTaskListDto {
   title: string;
 
   @Column({ nullable: true })
-  description: string;
-
-  @Column({ nullable: true })
   position: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

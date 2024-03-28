@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { TaskHistoryService } from './task-history.service';
 
-@Controller('task-history')
+@Controller('api/task-history')
 export class TaskHistoryController {
   constructor(private readonly taskHistoryService: TaskHistoryService) {}
 
