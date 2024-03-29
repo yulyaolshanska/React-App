@@ -4,8 +4,8 @@ import {
   Post,
   Body,
   Param,
-  Put,
   Delete,
+  Patch,
 } from '@nestjs/common';
 import { TaskService } from './tasks.service';
 import { Task } from './entities/task.entity';
@@ -30,7 +30,7 @@ export class TaskController {
     return this.taskService.getTaskById(Number(id));
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
@@ -40,6 +40,6 @@ export class TaskController {
 
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
-    await this.taskService.removeTask(Number(id));
+    await this.taskService.removeTask(+id);
   }
 }

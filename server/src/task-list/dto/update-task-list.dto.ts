@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/swagger';
-import { CreateTaskListDto } from './create-task-list.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { Column } from 'typeorm';
 
-export class UpdateTaskListDto extends PartialType(CreateTaskListDto) {}
+export class UpdateTaskListDto {
+  @Column()
+  @ApiProperty()
+  title: string;
+}

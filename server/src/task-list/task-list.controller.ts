@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Put,
+  Patch,
 } from '@nestjs/common';
 import { TaskListService } from './task-list.services';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
@@ -25,7 +26,7 @@ export class TaskListController {
     return this.taskListService.getAllTaskLists();
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateTaskListDto: UpdateTaskListDto,
