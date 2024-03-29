@@ -1,0 +1,20 @@
+.listTitleContainer {
+  position: relative;
+  padding: 8px;
+  display: flex;
+  border: 1px solid black;
+}
+
+.taskLists {
+  display: flex;
+  gap: 40px;
+}
+
+.listTitleInput {
+  border: none;
+  outline: none;
+}
+
+.activeInput {
+  border: 1px solid grey;
+}

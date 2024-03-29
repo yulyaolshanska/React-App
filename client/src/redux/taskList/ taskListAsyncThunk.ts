@@ -29,14 +29,14 @@ export const addTaskList = createAsyncThunk<TaskList>(
 
 export const updateTaskList = createAsyncThunk<
   TaskList,
-  { id: number; updatedTaskList: TaskList }
->("taskLists/updateTaskList", async ({ id, updatedTaskList }) => {
+  { id: number; newTitle: string }
+>("taskLists/updateTaskList", async ({ id, newTitle }) => {
   const response = await fetch(`${BASE_URL}/task-list/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(updatedTaskList),
+    body: JSON.stringify({ title: newTitle }),
   });
   const data = await response.json();
 
