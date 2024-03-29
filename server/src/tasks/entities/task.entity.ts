@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Priority } from 'src/constants/enums/priority.enum';
+import { TaskHistory } from 'src/task-history/entities/task-history.entity';
 import { TaskList } from 'src/task-list/entities/task-list.entity';
 import {
   Entity,
@@ -7,6 +8,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'task' })
@@ -36,6 +38,7 @@ export class Task {
   updated_at: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @ApiProperty()
   due_date: Date;
 
   @Column({ type: 'enum', enum: Priority, default: Priority.LOW })
@@ -46,4 +49,11 @@ export class Task {
   @JoinColumn({ name: 'column_id' })
   @ApiProperty()
   column: TaskList;
+
+  @OneToMany(() => TaskHistory, (taskHistory) => taskHistory.task, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'taskHistory_id' })
+  @ApiProperty()
+  taskHistory: TaskHistory[];
 }

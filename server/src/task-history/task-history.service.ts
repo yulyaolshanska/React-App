@@ -15,8 +15,6 @@ export class TaskHistoryService {
   ) {}
 
   async create(taskHistoryDto: TaskHistoryDto) {
-    console.log('taskHistoryDto', taskHistoryDto);
-
     const task = await this.taskRepository.findOne({
       where: { id: taskHistoryDto.task_id },
       relations: ['column'],

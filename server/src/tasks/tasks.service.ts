@@ -7,6 +7,7 @@ import { TaskHistoryService } from 'src/task-history/task-history.service';
 import { Priority } from 'src/constants/enums/priority.enum';
 import { TaskListService } from 'src/task-list/task-list.services';
 import { TaskList } from 'src/task-list/entities/task-list.entity';
+import { TaskHistory } from 'src/task-history/entities/task-history.entity';
 
 @Injectable()
 export class TaskService {
@@ -15,6 +16,9 @@ export class TaskService {
     private readonly taskRepository: Repository<Task>,
     @InjectRepository(TaskList)
     private readonly taskListRepository: Repository<TaskList>,
+    @InjectRepository(TaskHistory)
+    private readonly taskHistoryRepository: Repository<TaskHistory>,
+
     private readonly taskHistoryService: TaskHistoryService,
     private readonly taskListService: TaskListService,
   ) {}
@@ -24,6 +28,7 @@ export class TaskService {
     const column = await this.taskListRepository.findOne({
       where: { id: columnId },
     });
+
     if (!column) {
       throw new Error(`TaskList with ID ${columnId} not found`);
     }
@@ -60,13 +65,17 @@ export class TaskService {
 
     const oldDescription = task.description;
     const oldTitle = task.title;
-    const oldPosition = task.position;
     const oldDueDate = task.due_date;
     const oldPriority = task.priority;
     const oldColumnId = task.column?.id;
 
-    Object.assign(task, updateTaskDto);
-    const updatedTask = await this.taskRepository.save(task);
+    const taskHistory = await this.taskHistoryRepository.find({
+      where: { task: { id: id } },
+      relations: ['task'],
+    });
+
+    const newTask = { ...task, ...updateTaskDto, taskHistory: taskHistory };
+    const updatedTask = await this.taskRepository.save(newTask);
 
     if (oldDescription !== updatedTask.description) {
       await this.taskHistoryService.logTaskDescriptionUpdate(
