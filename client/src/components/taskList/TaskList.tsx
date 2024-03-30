@@ -7,6 +7,7 @@ import {
   updateTaskList,
 } from "../../redux/taskList/ taskListAsyncThunk";
 import { deleteTask } from "../../redux/tasks/taskAsyncThunk";
+import AddTaskForm from "../addTaskForm/AddTaskForm";
 import DropDown from "../dropDown/DropDown";
 import TaskCard from "./taskCard/TaskCard";
 import styles from "./TaskLists.module.scss";
@@ -28,6 +29,7 @@ const TaskLists: React.FC<TaskListProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [activeTitleInput, setActiveTitleInput] = useState<number | null>(null);
   const [editedTitle, setEditedTitle] = useState<string>("");
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const handleListTitleChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -92,6 +94,7 @@ const TaskLists: React.FC<TaskListProps> = ({
                 type="list"
               />
             </div>
+            <button onClick={() => setIsOpenModal(true)}>Add Task</button>
             {tasks
               .filter((t: Task) => t.column.id === taskList.id)
               .sort(
@@ -109,6 +112,11 @@ const TaskLists: React.FC<TaskListProps> = ({
           </li>
         ))}
       </ul>
+      <AddTaskForm
+        onClose={() => console.log("close")}
+        onSubmit={() => console.log("add")}
+        isOpen={isOpenModal}
+      />
     </div>
   );
 };
