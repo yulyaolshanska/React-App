@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TaskHistory } from 'src/task-history/entities/task-history.entity';
+import { Task } from 'src/tasks/entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
 import { UpdateTaskListDto } from './dto/update-task-list.dto';
@@ -10,6 +12,10 @@ export class TaskListService {
   constructor(
     @InjectRepository(TaskList)
     private readonly taskListRepository: Repository<TaskList>,
+    @InjectRepository(Task)
+    private readonly taskRepository: Repository<Task>,
+    @InjectRepository(TaskHistory)
+    private readonly taskHistoryRepository: Repository<TaskHistory>,
   ) {}
 
   async createTaskList(
@@ -44,6 +50,14 @@ export class TaskListService {
   }
 
   async removeTaskList(id: number) {
+    const tasks = await this.taskRepository.find({ where: { column: { id } } });
+
+    for (const task of tasks) {
+      await this.taskHistoryRepository.delete({ task: { id: task.id } });
+    }
+
+    await this.taskRepository.delete({ column: { id } });
+
     await this.taskListRepository.delete(id);
   }
 }

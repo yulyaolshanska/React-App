@@ -125,6 +125,7 @@ export class TaskService {
   }
 
   async removeTask(id: number): Promise<void> {
+    await this.taskHistoryRepository.delete({ task: { id } });
     await this.taskRepository.delete(id);
   }
 }
