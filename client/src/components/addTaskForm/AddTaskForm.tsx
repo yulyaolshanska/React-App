@@ -152,10 +152,10 @@ const AddTaskForm: React.ForwardRefRenderFunction<
           <button type="submit" className={styles.submitButton}>
             Submit
           </button>
+          <button onClick={onClose} className={styles.closeButton}>
+            Cancel
+          </button>
         </form>
-        <button onClick={onClose} className={styles.closeButton}>
-          Close
-        </button>
       </div>
     </div>
   );

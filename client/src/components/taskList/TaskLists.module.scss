@@ -18,3 +18,14 @@
 .activeInput {
   border: 1px solid grey;
 }
+
+.addTaskBtn {
+  display: flex;
+  border: 1px solid rgb(92, 92, 92);
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 16px;
+  width: 100%;
+  justify-content: center;
+  font-weight: 600;
+}

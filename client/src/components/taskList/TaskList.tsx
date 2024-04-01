@@ -100,7 +100,7 @@ const TaskLists: React.FC<TaskListProps> = ({
   const handleEscapeKey = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setIsOpenAddModal(false);
-      // setIsOpenEditModal(false);
+      setIsOpenEditModal(false);
     }
   };
 
@@ -123,6 +123,7 @@ const TaskLists: React.FC<TaskListProps> = ({
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
+
       <ul className={styles.taskLists}>
         {taskLists.length > 0 &&
           taskLists.map((taskList) => (
@@ -152,12 +153,13 @@ const TaskLists: React.FC<TaskListProps> = ({
                 />
               </div>
               <button
+                className={styles.addTaskBtn}
                 onClick={() => {
                   setIsOpenAddModal(true);
                   setActiveListId(taskList.id);
                 }}
               >
-                Add Task
+                + Add new task
               </button>
               {activeListId && (
                 <AddTaskForm
@@ -177,18 +179,16 @@ const TaskLists: React.FC<TaskListProps> = ({
                       first.position - second.position
                   )
                   .map((task) => (
-                    <>
-                      <TaskCard task={task} key={task.id}>
-                        <DropDown
-                          onEditClick={() => {
-                            setIsOpenEditModal(true);
-                            setTaskForEdit(task);
-                          }}
-                          onDeleteClick={() => handleDeleteTask(task.id)}
-                          mode="task"
-                        />
-                      </TaskCard>
-                    </>
+                    <TaskCard task={task} key={task.id}>
+                      <DropDown
+                        onEditClick={() => {
+                          setIsOpenEditModal(true);
+                          setTaskForEdit(task);
+                        }}
+                        onDeleteClick={() => handleDeleteTask(task.id)}
+                        mode="task"
+                      />
+                    </TaskCard>
                   ))}
               {activeListId && taskForEdit && (
                 <TaskModal
