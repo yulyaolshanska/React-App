@@ -1,20 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import TaskLists from "../components/taskList/TaskList";
+import { TaskList } from "../interfaces/ TaskList.interface";
 import { RootState, useAppDispatch } from "../redux/store";
-import { fetchTaskLists } from "../redux/taskList/ taskListAsyncThunk";
+import {
+  addTaskList,
+  fetchTaskLists,
+} from "../redux/taskList/ taskListAsyncThunk";
 import {
   selectTaskLists,
   selectTaskListsError,
   selectTaskListsLoading,
 } from "../redux/taskList/taskListSelectors";
 import { fetchTasks } from "../redux/tasks/taskAsyncThunk";
+import styles from "./Home.module.scss";
 
 const HomePage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const taskLists = useSelector(selectTaskLists);
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
-  const taskLists = useSelector(selectTaskLists);
   const isTaskListLoading = useSelector(selectTaskListsLoading);
   const taskListError = useSelector(selectTaskListsError);
 
@@ -31,8 +36,23 @@ const HomePage: React.FC = () => {
     fetchData();
   }, [dispatch]);
 
+  const handleAddNewList = () => {
+    const newTaskList: TaskList = {
+      id: taskList.length + 1,
+      title: "New List",
+      created_at: new Date(),
+      updated_at: new Date(),
+      task: [],
+    };
+    dispatch(addTaskList(newTaskList));
+  };
+
   return (
-    <div>
+    <div className={styles.pageContainer}>
+      <button className={styles.addListBtn} onClick={handleAddNewList}>
+        + Create new list
+      </button>
+
       <TaskLists
         taskLists={taskLists}
         tasks={tasks}
