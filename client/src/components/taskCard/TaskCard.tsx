@@ -1,6 +1,6 @@
 import React from "react";
-import { weekdays } from "../../../constants";
-import { Task } from "../../../interfaces/Task";
+import { weekdays } from "../../constants";
+import { Task } from "../../interfaces/Task";
 import styles from "./TaskCard.module.scss";
 
 interface TaskCardProps {
