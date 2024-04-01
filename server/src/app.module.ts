@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TaskList } from './task-list/entities/task-list.entity';
 import { TaskListModule } from './task-list/task-list.module';
 import { config as dotenvConfig } from 'dotenv';
+import { TaskHistoryModule } from './task-history/task-history.module';
+import { TaskModule } from './tasks/tasks.module';
 
 dotenvConfig({ path: '.env' });
 
@@ -13,14 +14,16 @@ dotenvConfig({ path: '.env' });
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: `${process.env.DATABASE_HOST}`,
-      port: 5432,
+      port: +`${process.env.DATABASE_PORT}`,
       username: `${process.env.DATABASE_USERNAME}`,
-      password: 'prostoparol',
+      password: `${process.env.DATABASE_PASSWORD}`,
       database: `${process.env.DATABASE_NAME}`,
-      entities: [],
       synchronize: true,
+      autoLoadEntities: true,
     }),
-    // TaskListModule,
+    TaskListModule,
+    TaskModule,
+    TaskHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
