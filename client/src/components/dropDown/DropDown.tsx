@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useModal } from "../../hooks/useModal";
 import styles from "./DropDown.module.scss";
 
 interface DropDownProps {
+  onAddClick?: () => void;
   onEditClick: () => void;
   onDeleteClick: () => void;
-  type: "list" | "task";
+  mode: "list" | "task";
 }
 
 const DropDown: React.FC<DropDownProps> = ({
   onEditClick,
   onDeleteClick,
-  type,
+  onAddClick,
+  mode,
 }) => {
   const [isShowListMenu, setIsShowListMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,9 @@ const DropDown: React.FC<DropDownProps> = ({
   };
 
   const handleAddCart = (): void => {
+    if (onAddClick) {
+      onAddClick();
+    }
     setIsShowListMenu(false);
   };
 
@@ -74,7 +80,7 @@ const DropDown: React.FC<DropDownProps> = ({
           >
             Edit
           </button>
-          {type === "list" && (
+          {mode === "list" && (
             <button
               type="button"
               onClick={() => handleAddCart()}
