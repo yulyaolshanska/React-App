@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../constants";
+import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
 import { Task } from "../../interfaces/Task";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
@@ -21,7 +22,7 @@ export const fetchTaskById = createAsyncThunk(
 
 export const addTask = createAsyncThunk(
   "tasks/addTask",
-  async (newTask: Task) => {
+  async (newTask: AddTaskFormData) => {
     const response = await fetch(`${BASE_URL}/tasks`, {
       method: "POST",
       headers: {
@@ -37,7 +38,7 @@ export const addTask = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async ({ id, updatedTask }: { id: number; updatedTask: Task }) => {
+  async ({ id, updatedTask }: { id: number; updatedTask: AddTaskFormData }) => {
     const response = await fetch(`${BASE_URL}/tasks/${id}`, {
       method: "PUT",
       headers: {

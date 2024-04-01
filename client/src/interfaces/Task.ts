@@ -10,8 +10,8 @@ export interface Task {
     updated_at: Date;
     created_at: Date;
   };
-  created_at: Date;
-  updated_at: Date;
+  created_at?: Date;
+  updated_at?: Date;
   due_date: Date;
   priority: Priority;
 }
