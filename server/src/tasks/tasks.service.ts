@@ -47,7 +47,7 @@ export class TaskService {
   }
 
   async getAllTasks(): Promise<Task[]> {
-    return this.taskRepository.find({ relations: ['column'] });
+    return this.taskRepository.find({ relations: ['column', 'taskHistory'] });
   }
 
   async getTaskById(id: number): Promise<Task> {

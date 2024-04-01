@@ -50,11 +50,11 @@ export class TaskHistoryService {
   }
 
   async logTaskCreation(taskId: number, username: string) {
-    return this.logTaskAction('create', taskId, username);
+    return this.logTaskAction('Create', taskId, username);
   }
 
   async logTaskRenaming(taskId: number, username: string, newName: string) {
-    return this.logTaskAction(`rename to '${newName}'`, taskId, username);
+    return this.logTaskAction(`Rename to '${newName}'`, taskId, username);
   }
 
   async logTaskDescriptionUpdate(
@@ -63,7 +63,7 @@ export class TaskHistoryService {
     newDescription: string,
   ) {
     return this.logTaskAction(
-      `update description to '${newDescription}'`,
+      `Update description to '${newDescription}'`,
       taskId,
       username,
     );
@@ -75,7 +75,7 @@ export class TaskHistoryService {
     newDueDate: Date,
   ) {
     return this.logTaskAction(
-      `update due date to '${newDueDate.toISOString()}'`,
+      `Update due date to '${newDueDate.toISOString()}'`,
       taskId,
       username,
     );
@@ -83,7 +83,7 @@ export class TaskHistoryService {
 
   async logTaskMovement(taskId: number, username: string, newColumn: string) {
     return this.logTaskAction(
-      `move to '${newColumn} column'`,
+      `Move to '${newColumn} column'`,
       taskId,
       username,
     );
@@ -95,7 +95,7 @@ export class TaskHistoryService {
     newPriority: string,
   ) {
     return this.logTaskAction(
-      `update priority to '${newPriority}'`,
+      `Update priority to '${newPriority}'`,
       taskId,
       username,
     );

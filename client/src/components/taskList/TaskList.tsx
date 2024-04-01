@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TaskList } from "../../interfaces/ TaskList.interface";
-import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
 import { Task } from "../../interfaces/Task";
 import { useAppDispatch } from "../../redux/store";
 import {
   deleteTaskList,
   updateTaskList,
 } from "../../redux/taskList/ taskListAsyncThunk";
-import { addTask, deleteTask } from "../../redux/tasks/taskAsyncThunk";
+import { deleteTask } from "../../redux/tasks/taskAsyncThunk";
 import AddTaskForm from "../addTaskForm/AddTaskForm";
 import DropDown from "../dropDown/DropDown";
 import TaskCard from "../taskCard/TaskCard";
@@ -35,10 +34,10 @@ const TaskLists: React.FC<TaskListProps> = ({
   const [editedTitle, setEditedTitle] = useState<string>("");
   const [isOpenAddModal, setIsOpenAddModal] = useState<boolean>(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState<boolean>(false);
+  const [taskForEdit, setTaskForEdit] = useState<Task | null>(null);
   const [activeListId, setActiveListId] = useState<number | undefined>(
     taskLists.length > 0 ? taskLists[0].id : undefined
   );
-  const [taskForEdit, setTaskForEdit] = useState<Task | undefined>(undefined);
 
   const handleListTitleChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -63,13 +62,10 @@ const TaskLists: React.FC<TaskListProps> = ({
     dispatch(deleteTask(id));
   };
 
-  const handleAddTask = (newTask: AddTaskFormData) => {
-    dispatch(addTask(newTask));
-  };
-
   const handleCloseModal = () => {
     setIsOpenAddModal(false);
     setIsOpenEditModal(false);
+    setTaskForEdit(null);
   };
 
   const focusInput = (id: number) => {
@@ -94,6 +90,7 @@ const TaskLists: React.FC<TaskListProps> = ({
       !editModalRef.current.contains(e.target as Node)
     ) {
       setIsOpenEditModal(false);
+      setTaskForEdit(null);
     }
   };
 
@@ -101,6 +98,7 @@ const TaskLists: React.FC<TaskListProps> = ({
     if (e.key === "Escape") {
       setIsOpenAddModal(false);
       setIsOpenEditModal(false);
+      setTaskForEdit(null);
     }
   };
 
@@ -189,13 +187,11 @@ const TaskLists: React.FC<TaskListProps> = ({
                       />
                     </TaskCard>
                   ))}
-              {activeListId && taskForEdit && (
+              {taskForEdit && (
                 <TaskModal
                   task={taskForEdit}
                   ref={editModalRef}
-                  listId={activeListId}
                   onClose={handleCloseModal}
-                  onSubmit={handleAddTask}
                   isOpen={isOpenEditModal}
                 />
               )}

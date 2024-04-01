@@ -1,3 +1,5 @@
+import { TaskHistory } from "./TaskHistory.interface";
+
 export interface Task {
   id: number;
   title: string;
@@ -14,6 +16,7 @@ export interface Task {
   updated_at?: Date;
   due_date: Date;
   priority: Priority;
+  taskHistory: TaskHistory[];
 }
 
 export enum Priority {

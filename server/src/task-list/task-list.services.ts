@@ -21,7 +21,13 @@ export class TaskListService {
   async createTaskList(
     createTaskListDto: CreateTaskListDto,
   ): Promise<TaskList> {
-    const taskList = this.taskListRepository.create({ ...createTaskListDto });
+    const taskLists = await this.taskListRepository.find();
+    let targetPos = taskLists.length > 0 ? taskLists[0].position + 1 : 1;
+    const taskList = this.taskListRepository.create({
+      ...createTaskListDto,
+      position: targetPos,
+    });
+
     return this.taskListRepository.save(taskList);
   }
 
