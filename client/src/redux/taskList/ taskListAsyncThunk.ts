@@ -11,9 +11,9 @@ export const fetchTaskLists = createAsyncThunk<TaskList[]>(
   }
 );
 
-export const addTaskList = createAsyncThunk<TaskList>(
+export const addTaskList = createAsyncThunk(
   "taskLists/addTaskList",
-  async (newTaskList) => {
+  async (newTaskList: TaskList) => {
     const response = await fetch(`${BASE_URL}/task-list`, {
       method: "POST",
       headers: {

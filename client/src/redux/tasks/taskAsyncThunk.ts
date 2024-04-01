@@ -6,7 +6,7 @@ import { Task } from "../../interfaces/Task";
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const response = await fetch(`${BASE_URL}/tasks`);
   const data = await response.json();
-  console.log("data", data);
+
   return data;
 });
 
@@ -40,7 +40,7 @@ export const updateTask = createAsyncThunk(
   "tasks/updateTask",
   async ({ id, updatedTask }: { id: number; updatedTask: AddTaskFormData }) => {
     const response = await fetch(`${BASE_URL}/tasks/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
