@@ -38,7 +38,7 @@ const HomePage: React.FC = () => {
 
   const handleAddNewList = () => {
     const newTaskList: TaskList = {
-      id: taskList.length + 1,
+      id: taskLists.length + 1,
       title: "New List",
       created_at: new Date(),
       updated_at: new Date(),
