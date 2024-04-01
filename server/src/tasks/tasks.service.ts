@@ -104,11 +104,13 @@ export class TaskService {
       );
     }
 
-    if (oldDueDate.toISOString() !== updatedTask.due_date.toISOString()) {
+    if (
+      oldDueDate.toISOString() !== new Date(updatedTask.due_date).toISOString()
+    ) {
       await this.taskHistoryService.logTaskDueDateUpdate(
         updatedTask.id,
         'username',
-        updatedTask.due_date,
+        new Date(updatedTask.due_date),
       );
     }
 
