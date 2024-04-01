@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { TaskHistory } from "../../interfaces/TaskHistory.interface";
 
-// Define the asynchronous thunk action to fetch task history
 export const fetchTaskHistory = createAsyncThunk<TaskHistory[], number>(
   "taskHistory/fetchTaskHistory",
   async (taskId: number) => {

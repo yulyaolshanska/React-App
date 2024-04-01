@@ -166,7 +166,6 @@ const TaskLists: React.FC<TaskListProps> = ({
                   ref={addModalRef}
                   listId={activeListId}
                   onClose={handleCloseModal}
-                  onSubmit={handleAddTask}
                   isOpen={isOpenAddModal}
                 />
               )}

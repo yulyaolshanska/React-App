@@ -8,14 +8,13 @@ import styles from "./AddTaskForm.module.scss";
 interface AddTaskFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (newTask: AddTaskFormData) => void;
   listId: number;
 }
 
 const AddTaskForm: React.ForwardRefRenderFunction<
   HTMLDivElement,
   AddTaskFormProps
-> = ({ isOpen, onClose, onSubmit, listId }, ref) => {
+> = ({ isOpen, onClose, listId }, ref) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -30,7 +29,6 @@ const AddTaskForm: React.ForwardRefRenderFunction<
   const handleFormSubmit = (data: AddTaskFormData) => {
     data.columnId = listId;
     dispatch(addTask(data));
-    // onSubmit(data);
     reset();
     onClose();
   };

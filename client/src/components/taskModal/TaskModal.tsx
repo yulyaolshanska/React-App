@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
 import { Task } from "../../interfaces/Task";
 import { useAppDispatch } from "../../redux/store";
-import { addTask, updateTask } from "../../redux/tasks/taskAsyncThunk";
+import { updateTask } from "../../redux/tasks/taskAsyncThunk";
 import styles from "./TaskModal.module.scss";
 
 interface TaskModalProps {

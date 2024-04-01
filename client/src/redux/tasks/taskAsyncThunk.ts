@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../constants";
 import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
-import { Task } from "../../interfaces/Task";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const response = await fetch(`${BASE_URL}/tasks`);

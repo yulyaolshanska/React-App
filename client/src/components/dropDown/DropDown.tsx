@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useModal } from "../../hooks/useModal";
 import styles from "./DropDown.module.scss";
 
 interface DropDownProps {

@@ -7,7 +7,6 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  // app.use(cors());
   app.enableCors({
     origin: '*',
   });

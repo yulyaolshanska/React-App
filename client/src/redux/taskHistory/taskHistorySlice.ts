@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TaskHistory } from "../../interfaces/TaskHistory.interface";
-import { RootState } from "../store";
 import { fetchTaskHistory } from "./taskHistoryAsyncThunk";
 
 interface TaskHistoryState {
@@ -38,5 +37,3 @@ const taskHistorySlice = createSlice({
 
 export const taskHistoryActions = taskHistorySlice.actions;
 export const taskHistoryReducer = taskHistorySlice.reducer;
-
-
