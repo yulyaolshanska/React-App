@@ -1,5 +1,5 @@
 .backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.361);
   position: fixed;
   top: 0;
   left: 0;
@@ -8,6 +8,7 @@
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .modal {
@@ -15,6 +16,7 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 900;
 }
 
 .open {

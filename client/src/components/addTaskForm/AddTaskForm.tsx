@@ -1,66 +1,70 @@
-import React, { FC } from "react";
+import React, { forwardRef } from "react";
 import { useForm } from "react-hook-form";
+import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
+import { useAppDispatch } from "../../redux/store";
+import { addTask } from "../../redux/tasks/taskAsyncThunk";
 import styles from "./AddTaskForm.module.scss";
-
-interface FormData {
-  name: string;
-  description: string;
-  dueDate: Date;
-  priority: "LOW" | "HIGH" | "MEDIUM";
-}
 
 interface AddTaskFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (newTask: AddTaskFormData) => void;
+  listId: number;
 }
 
-const AddTaskForm: FC<AddTaskFormProps> = ({ isOpen, onClose, onSubmit }) => {
+const AddTaskForm: React.ForwardRefRenderFunction<
+  HTMLDivElement,
+  AddTaskFormProps
+> = ({ isOpen, onClose, onSubmit, listId }, ref) => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, touchedFields },
-  } = useForm<FormData>({
+  } = useForm<AddTaskFormData>({
     mode: "onChange",
     shouldUnregister: true,
   });
-
-  const handleFormSubmit = (data: FormData) => {
-    // Handle form submission
-    console.log(data);
-    onSubmit();
+  const handleFormSubmit = (data: AddTaskFormData) => {
+    data.columnId = listId;
+    dispatch(addTask(data));
+    // onSubmit(data);
+    reset();
+    onClose();
   };
 
   return (
     <div className={`${styles.backdrop} ${isOpen ? styles.open : ""}`}>
-      <div className={styles.modal}>
-        <h2>Add Task</h2>
+      <div ref={ref} className={styles.modal}>
+        <h2> Add Task</h2>
         <form onSubmit={handleSubmit(handleFormSubmit)} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.label}>
+            <label htmlFor="title" className={styles.label}>
               Name:
             </label>
             <input
               type="text"
-              id="name"
-              aria-invalid={errors.name ? "true" : "false"}
+              id="title"
+              aria-invalid={errors.title ? "true" : "false"}
               required
-              className={`${styles.input} ${errors.name ? styles.error : ""}`}
-              {...register("name", {
+              className={`${styles.input} ${errors.title ? styles.error : ""}`}
+              {...register("title", {
                 required: "This field is required",
                 minLength: {
                   value: 2,
-                  message: "Name should be at least 2 characters long",
+                  message: "Title should be at least 2 characters long",
                 },
                 maxLength: {
                   value: 30,
-                  message: "Name should not exceed 30 characters",
+                  message: "Title should not exceed 30 characters",
                 },
               })}
-              name="name"
+              name="title"
             />
-            {errors?.name && touchedFields.name && (
-              <p className={styles.errorMessage}>{errors?.name?.message}</p>
+            {errors?.title && touchedFields.title && (
+              <p className={styles.errorMessage}>{errors?.title?.message}</p>
             )}
           </div>
 
@@ -99,18 +103,18 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ isOpen, onClose, onSubmit }) => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="dueDate" className={styles.label}>
+            <label htmlFor="due_date" className={styles.label}>
               Due Date:
             </label>
             <input
               type="date"
-              id="dueDate"
-              aria-invalid={errors.dueDate ? "true" : "false"}
+              id="due_date"
+              aria-invalid={errors.due_date ? "true" : "false"}
               required
               className={`${styles.input} ${
-                errors.dueDate ? styles.error : ""
+                errors.due_date ? styles.error : ""
               }`}
-              {...register("dueDate", {
+              {...register("due_date", {
                 required: "This field is required",
                 validate: {
                   futureDate: (value) => {
@@ -122,10 +126,10 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ isOpen, onClose, onSubmit }) => {
                   },
                 },
               })}
-              name="dueDate"
+              name="due_date"
             />
-            {errors.dueDate && touchedFields.dueDate && (
-              <p className={styles.errorMessage}>{errors.dueDate?.message}</p>
+            {errors.due_date && touchedFields.due_date && (
+              <p className={styles.errorMessage}>{errors.due_date?.message}</p>
             )}
           </div>
 
@@ -157,4 +161,4 @@ const AddTaskForm: FC<AddTaskFormProps> = ({ isOpen, onClose, onSubmit }) => {
   );
 };
 
-export default AddTaskForm;
+export default forwardRef(AddTaskForm);
