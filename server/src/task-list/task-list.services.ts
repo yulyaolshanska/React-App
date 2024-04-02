@@ -22,7 +22,7 @@ export class TaskListService {
     createTaskListDto: CreateTaskListDto,
   ): Promise<TaskList> {
     const taskLists = await this.taskListRepository.find();
-    let targetPos = taskLists.length > 0 ? taskLists[0].position + 1 : 1;
+    let targetPos = taskLists.length > 0 ? taskLists.length + 1 : 1;
     const taskList = this.taskListRepository.create({
       ...createTaskListDto,
       position: targetPos,
@@ -32,7 +32,9 @@ export class TaskListService {
   }
 
   async getAllTaskLists(): Promise<TaskList[]> {
-    return this.taskListRepository.find();
+    return this.taskListRepository.find({
+      relations: ['task'],
+    });
   }
 
   getTaskListById(id: number) {

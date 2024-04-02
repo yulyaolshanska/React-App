@@ -1,12 +1,9 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
 import { TaskList } from "../../interfaces/ TaskList.interface";
 import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
 import { Task } from "../../interfaces/Task";
 import { useAppDispatch } from "../../redux/store";
-import { fetchTaskHistory } from "../../redux/taskHistory/taskHistoryAsyncThunk";
-import { selectTaskHistory } from "../../redux/taskHistory/taskHistorySelectors";
 import { updateTask } from "../../redux/tasks/taskAsyncThunk";
 import styles from "./TaskModal.module.scss";
 

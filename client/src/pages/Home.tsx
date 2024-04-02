@@ -37,11 +37,14 @@ const HomePage: React.FC = () => {
   }, [dispatch]);
 
   const handleAddNewList = () => {
+    const maxId = Math.max(...taskLists.map((list) => list.id), 0);
+    const newId = maxId + 1;
     const newTaskList: TaskList = {
-      id: taskLists.length + 1,
+      id: newId,
       title: "New List",
       created_at: new Date(),
       updated_at: new Date(),
+      position: taskLists.length > 0 ? taskLists.length + 1 : 1,
       task: [],
     };
     dispatch(addTaskList(newTaskList));

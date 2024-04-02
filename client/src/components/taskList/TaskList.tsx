@@ -124,80 +124,86 @@ const TaskLists: React.FC<TaskListProps> = ({
 
       <ul className={styles.taskLists}>
         {taskLists.length > 0 &&
-          taskLists.map((taskList) => (
-            <li key={taskList.id}>
-              <div className={styles.listTitleContainer}>
-                <input
-                  id={`input-${taskList.id}`}
-                  name="title"
-                  value={
-                    activeTitleInput === taskList.id
-                      ? editedTitle
-                      : taskList.title
-                  }
-                  className={`${styles.listTitleInput} ${
-                    activeTitleInput === taskList.id ? styles.activeInput : ""
-                  }`}
-                  onClick={() => setActiveTitleInput(taskList.id)}
-                  onBlur={() => handleListTitleSave(taskList.id, editedTitle)}
-                  onChange={handleListTitleChange}
-                  ref={inputRef}
-                />
-                <DropDown
-                  onAddClick={() => setIsOpenAddModal(true)}
-                  onEditClick={() => focusInput(taskList.id)}
-                  onDeleteClick={() => handleDeleteTaskList(taskList.id)}
-                  mode="list"
-                />
-              </div>
-              <button
-                className={styles.addTaskBtn}
-                onClick={() => {
-                  setIsOpenAddModal(true);
-                  setActiveListId(taskList.id);
-                }}
-              >
-                + Add new task
-              </button>
-              {activeListId && (
-                <AddTaskForm
-                  ref={addModalRef}
-                  listId={activeListId}
-                  onClose={handleCloseModal}
-                  isOpen={isOpenAddModal}
-                />
-              )}
+          [...taskLists]
+            .sort(
+              (first: TaskList, second: TaskList) =>
+                first.position - second.position
+            )
+            .map((taskList) => (
+              <li key={taskList.id}>
+                <div className={styles.listTitleContainer}>
+                  <input
+                    id={`input-${taskList.id}`}
+                    name="title"
+                    value={
+                      activeTitleInput === taskList.id
+                        ? editedTitle
+                        : taskList.title
+                    }
+                    className={`${styles.listTitleInput} ${
+                      activeTitleInput === taskList.id ? styles.activeInput : ""
+                    }`}
+                    onClick={() => setActiveTitleInput(taskList.id)}
+                    onBlur={() => handleListTitleSave(taskList.id, editedTitle)}
+                    onChange={handleListTitleChange}
+                    ref={inputRef}
+                  />
+                  <p className={styles.taskCounter}>{taskList.task.length}</p>
+                  <DropDown
+                    onAddClick={() => setIsOpenAddModal(true)}
+                    onEditClick={() => focusInput(taskList.id)}
+                    onDeleteClick={() => handleDeleteTaskList(taskList.id)}
+                    mode="list"
+                  />
+                </div>
+                <button
+                  className={styles.addTaskBtn}
+                  onClick={() => {
+                    setIsOpenAddModal(true);
+                    setActiveListId(taskList.id);
+                  }}
+                >
+                  + Add new task
+                </button>
+                {activeListId && (
+                  <AddTaskForm
+                    ref={addModalRef}
+                    listId={activeListId}
+                    onClose={handleCloseModal}
+                    isOpen={isOpenAddModal}
+                  />
+                )}
 
-              {tasks &&
-                tasks
-                  .filter((t: Task) => t?.column?.id === taskList.id)
-                  .sort(
-                    (first: Task, second: Task) =>
-                      first.position - second.position
-                  )
-                  .map((task) => (
-                    <TaskCard task={task} key={task.id} columns={taskLists}>
-                      <DropDown
-                        onEditClick={() => {
-                          setIsOpenEditModal(true);
-                          setTaskForEdit(task);
-                        }}
-                        onDeleteClick={() => handleDeleteTask(task.id)}
-                        mode="task"
-                      />
-                    </TaskCard>
-                  ))}
-              {taskForEdit && (
-                <TaskModal
-                  columns={taskLists}
-                  task={taskForEdit}
-                  ref={editModalRef}
-                  onClose={handleCloseModal}
-                  isOpen={isOpenEditModal}
-                />
-              )}
-            </li>
-          ))}
+                {tasks &&
+                  tasks
+                    .filter((t: Task) => t?.column?.id === taskList.id)
+                    .sort(
+                      (first: Task, second: Task) =>
+                        first.position - second.position
+                    )
+                    .map((task) => (
+                      <TaskCard task={task} key={task.id} columns={taskLists}>
+                        <DropDown
+                          onEditClick={() => {
+                            setIsOpenEditModal(true);
+                            setTaskForEdit(task);
+                          }}
+                          onDeleteClick={() => handleDeleteTask(task.id)}
+                          mode="task"
+                        />
+                      </TaskCard>
+                    ))}
+                {taskForEdit && (
+                  <TaskModal
+                    columns={taskLists}
+                    task={taskForEdit}
+                    ref={editModalRef}
+                    onClose={handleCloseModal}
+                    isOpen={isOpenEditModal}
+                  />
+                )}
+              </li>
+            ))}
       </ul>
     </div>
   );
