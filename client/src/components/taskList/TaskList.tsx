@@ -148,7 +148,9 @@ const TaskLists: React.FC<TaskListProps> = ({
                     onChange={handleListTitleChange}
                     ref={inputRef}
                   />
-                  <p className={styles.taskCounter}>{taskList.task.length}</p>
+                  <p className={styles.taskCounter}>
+                    {taskList?.task.length > 0 ? taskList?.task.length : 0}
+                  </p>
                   <DropDown
                     onAddClick={() => setIsOpenAddModal(true)}
                     onEditClick={() => focusInput(taskList.id)}
