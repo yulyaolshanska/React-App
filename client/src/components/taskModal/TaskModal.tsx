@@ -23,7 +23,7 @@ const TaskModal: React.ForwardRefRenderFunction<
 > = ({ task, isOpen, onClose, columns }, ref) => {
   const dispatch = useAppDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedColumnId, setSelectedColumnId] = useState(task.column.id);
+  const [selectedColumnId, setSelectedColumnId] = useState(task?.column?.id);
   const {
     register,
     handleSubmit,
@@ -34,7 +34,10 @@ const TaskModal: React.ForwardRefRenderFunction<
     shouldUnregister: true,
   });
   const handleFormSubmit = (data: AddTaskFormData) => {
-    data.columnId = selectedColumnId;
+    if (selectedColumnId) {
+      data.columnId = selectedColumnId;
+    }
+
     dispatch(updateTask({ id: task.id, updatedTask: data }));
     reset();
     onClose();

@@ -77,6 +77,11 @@ export class TaskService {
     const column = await this.taskListRepository.findOne({
       where: { id: updateTaskDto.columnId },
     });
+    console.log('column', column);
+    console.log('updateTaskDto.columnId', updateTaskDto.columnId);
+    if (!column) {
+      throw new Error(`TaskList with ID ${updateTaskDto.columnId} not found`);
+    }
 
     const newTask = {
       ...task,
