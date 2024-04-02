@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TaskHistory } from 'src/task-history/entities/task-history.entity';
-import { Task } from 'src/tasks/entities/task.entity';
+import { TaskHistory } from '../task-history/entities/task-history.entity';
+import { Task } from '../tasks/entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskListDto } from './dto/create-task-list.dto';
 import { UpdateTaskListDto } from './dto/update-task-list.dto';

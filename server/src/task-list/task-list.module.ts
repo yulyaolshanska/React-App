@@ -3,8 +3,8 @@ import { TaskList } from './entities/task-list.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskListController } from './task-list.controller';
 import { TaskListService } from './task-list.services';
-import { TaskModule } from 'src/tasks/tasks.module';
-import { TaskHistoryModule } from 'src/task-history/task-history.module';
+import { TaskModule } from '../tasks/tasks.module';
+import { TaskHistoryModule } from '../task-history/task-history.module';
 
 @Module({
   imports: [

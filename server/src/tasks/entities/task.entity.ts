@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from 'src/constants/enums/priority.enum';
-import { TaskHistory } from 'src/task-history/entities/task-history.entity';
-import { TaskList } from 'src/task-list/entities/task-list.entity';
+import { Priority } from '../../constants/enums/priority.enum';
+import { TaskHistory } from '../../task-history/entities/task-history.entity';
+import { TaskList } from '../../task-list/entities/task-list.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,

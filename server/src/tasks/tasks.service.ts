@@ -3,11 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { CreateTaskDto, UpdateTaskDto } from './dto/create-task.dto';
-import { TaskHistoryService } from 'src/task-history/task-history.service';
-import { Priority } from 'src/constants/enums/priority.enum';
-import { TaskListService } from 'src/task-list/task-list.services';
-import { TaskList } from 'src/task-list/entities/task-list.entity';
-import { TaskHistory } from 'src/task-history/entities/task-history.entity';
+import { TaskHistoryService } from '../task-history/task-history.service';
+import { Priority } from '../constants/enums/priority.enum';
+import { TaskListService } from '../task-list/task-list.services';
+import { TaskList } from '../task-list/entities/task-list.entity';
+import { TaskHistory } from '../task-history/entities/task-history.entity';
 
 @Injectable()
 export class TaskService {

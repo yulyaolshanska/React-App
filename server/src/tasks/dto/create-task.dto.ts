@@ -6,7 +6,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from 'src/constants/enums/priority.enum';
+import { Priority } from '../../constants/enums/priority.enum';
 
 export class CreateTaskDto {
   @ApiProperty()

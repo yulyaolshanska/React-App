@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Priority } from 'src/constants/enums/priority.enum';
+import { Priority } from '../../constants/enums/priority.enum';
 
 export class TaskDto {
   @ApiProperty()
