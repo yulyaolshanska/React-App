@@ -102,6 +102,16 @@ const TaskLists: React.FC<TaskListProps> = ({
     }
   };
 
+  const handleKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleListTitleSave(id, editedTitle);
+    }
+  };
+
   useEffect(() => {
     if (isOpenAddModal || isOpenEditModal) {
       document.addEventListener("mousedown", handleOutsideClick);
@@ -146,6 +156,7 @@ const TaskLists: React.FC<TaskListProps> = ({
                     onClick={() => setActiveTitleInput(taskList.id)}
                     onBlur={() => handleListTitleSave(taskList.id, editedTitle)}
                     onChange={handleListTitleChange}
+                    onKeyPress={(e) => handleKeyPress(e, taskList.id)}
                     ref={inputRef}
                   />
                   {taskList?.task && (
