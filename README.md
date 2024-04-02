@@ -22,10 +22,6 @@ docker compose build
 docker compose up
 ```
 
-```shell
-
-```
-
 ### Installation
 
 ```shell
