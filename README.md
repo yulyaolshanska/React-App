@@ -17,13 +17,6 @@ POSTGRES_URL=postgres://default:uJliQh2YoV7O@ep-icy-leaf-a4q6qgvr-pooler.us-east
 
 ```
 
-### Run
-
-```shell
-docker compose build
-docker compose up
-```
-
 ### Installation
 
 ```shell
@@ -52,5 +45,5 @@ cd client
 
 ```shell
 npm i
-npm run  start:dev
+npm run  start
 ```
