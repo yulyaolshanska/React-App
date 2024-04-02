@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../constants";
 import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
+import { UpdateTaskFormData } from "../../interfaces/UpdateTaskFormData.interface";
 
 export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
   const response = await fetch(`${BASE_URL}/tasks`);
@@ -37,7 +38,13 @@ export const addTask = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async ({ id, updatedTask }: { id: number; updatedTask: AddTaskFormData }) => {
+  async ({
+    id,
+    updatedTask,
+  }: {
+    id: number;
+    updatedTask: UpdateTaskFormData;
+  }) => {
     const response = await fetch(`${BASE_URL}/tasks/${id}`, {
       method: "PATCH",
       headers: {

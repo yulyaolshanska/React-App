@@ -176,7 +176,7 @@ const TaskLists: React.FC<TaskListProps> = ({
                       first.position - second.position
                   )
                   .map((task) => (
-                    <TaskCard task={task} key={task.id}>
+                    <TaskCard task={task} key={task.id} columns={taskLists}>
                       <DropDown
                         onEditClick={() => {
                           setIsOpenEditModal(true);

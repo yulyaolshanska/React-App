@@ -5,25 +5,32 @@
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
+  flex-direction: column;
+  display: flex;
+  gap: 6px;
 }
 
 .title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .description {
-  font-size: 14px;
-  margin-bottom: 5px;
+  font-size: 16px;
 }
 
 .dueDate {
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
 }
 
 .priority {
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
+}
+
+.formGroup {
+  background-color: #b2b0b094;
+  padding: 4px;
+  font-size: 16px;
 }
