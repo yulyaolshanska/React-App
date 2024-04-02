@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  db:
+  postgres:
     image: postgres
     restart: always
     env_file:
@@ -22,7 +22,7 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - db
+      - postgres
     command: 'npm run start:prod'
     volumes:
       - ./src:/app/src
@@ -36,4 +36,4 @@ services:
     ports:
       - '5050:80'
     depends_on:
-      - db
+      - postgres
