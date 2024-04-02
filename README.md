@@ -5,14 +5,16 @@ cd server
 ```
 
 ```shell
-DATABASE_HOST=localhost
+DATABASE_HOST=ep-icy-leaf-a4q6qgvr-pooler.us-east-1.aws.neon.tech
 DATABASE_PORT=5432
-DATABASE_USERNAME=postgres
-DATABASE_PASSWORD=postgres
-DATABASE_NAME=postgres
+DATABASE_USERNAME=default
+DATABASE_PASSWORD=uJliQh2YoV7O
+DATABASE_NAME=verceldb
 PGADMIN_DEFAULT_EMAIL=admin@admin.com
 PGADMIN_DEFAULT_PASSWORD=pgadmin4
-POSTGRES_PASSWORD=postgres
+POSTGRES_PASSWORD=uJliQh2YoV7O
+POSTGRES_URL=postgres://default:uJliQh2YoV7O@ep-icy-leaf-a4q6qgvr-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require
+
 ```
 
 ### Run
