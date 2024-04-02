@@ -2,10 +2,19 @@
   padding: 30px;
 }
 
+.head {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
 .addListBtn {
   margin-left: auto;
   display: flex;
-  margin-bottom: 20px;
   border: 1px solid rgb(92, 92, 92);
   border-radius: 5px;
   padding: 8px 10px;

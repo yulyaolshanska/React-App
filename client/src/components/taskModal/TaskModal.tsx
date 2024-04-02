@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { TaskList } from "../../interfaces/ TaskList.interface";
 import { AddTaskFormData } from "../../interfaces/AddTaskFormData.interface";
 import { Task } from "../../interfaces/Task";
 import { useAppDispatch } from "../../redux/store";
@@ -13,14 +14,16 @@ interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   task: Task;
+  columns: TaskList[];
 }
 
 const TaskModal: React.ForwardRefRenderFunction<
   HTMLDivElement,
   TaskModalProps
-> = ({ task, isOpen, onClose }, ref) => {
+> = ({ task, isOpen, onClose, columns }, ref) => {
   const dispatch = useAppDispatch();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedColumnId, setSelectedColumnId] = useState(task.column.id);
   const {
     register,
     handleSubmit,
@@ -31,6 +34,7 @@ const TaskModal: React.ForwardRefRenderFunction<
     shouldUnregister: true,
   });
   const handleFormSubmit = (data: AddTaskFormData) => {
+    data.columnId = selectedColumnId;
     dispatch(updateTask({ id: task.id, updatedTask: data }));
     reset();
     onClose();
@@ -203,6 +207,24 @@ const TaskModal: React.ForwardRefRenderFunction<
                 ) : (
                   <p>{task.priority}</p>
                 )}
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="columnId" className={styles.label}>
+                  Move to:
+                </label>
+                <select
+                  id="columnId"
+                  value={selectedColumnId}
+                  onChange={(e) => setSelectedColumnId(+e.target.value)}
+                  className={styles.select}
+                  name="columnId"
+                >
+                  {columns.map((column) => (
+                    <option key={column.id} value={column.id}>
+                      {column.title}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               {isEditMode && (

@@ -49,9 +49,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <button className={styles.addListBtn} onClick={handleAddNewList}>
-        + Create new list
-      </button>
+      <div className={styles.head}>
+        <h1 className={styles.title}>My Task Board</h1>
+        <button className={styles.addListBtn} onClick={handleAddNewList}>
+          + Create new list
+        </button>
+      </div>
 
       <TaskLists
         taskLists={taskLists}

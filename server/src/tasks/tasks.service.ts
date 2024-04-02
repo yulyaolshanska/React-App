@@ -74,7 +74,16 @@ export class TaskService {
       relations: ['task'],
     });
 
-    const newTask = { ...task, ...updateTaskDto, taskHistory: taskHistory };
+    const column = await this.taskListRepository.findOne({
+      where: { id: updateTaskDto.columnId },
+    });
+
+    const newTask = {
+      ...task,
+      ...updateTaskDto,
+      column,
+      taskHistory: taskHistory,
+    };
     const updatedTask = await this.taskRepository.save(newTask);
 
     if (oldDescription !== updatedTask.description) {

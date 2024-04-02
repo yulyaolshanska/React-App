@@ -170,7 +170,7 @@ const TaskLists: React.FC<TaskListProps> = ({
 
               {tasks &&
                 tasks
-                  .filter((t: Task) => t.column.id === taskList.id)
+                  .filter((t: Task) => t?.column?.id === taskList.id)
                   .sort(
                     (first: Task, second: Task) =>
                       first.position - second.position
@@ -189,6 +189,7 @@ const TaskLists: React.FC<TaskListProps> = ({
                   ))}
               {taskForEdit && (
                 <TaskModal
+                  columns={taskLists}
                   task={taskForEdit}
                   ref={editModalRef}
                   onClose={handleCloseModal}
