@@ -9,7 +9,16 @@ async function bootstrap() {
 
   app.enableCors({
     origin: '*',
+    methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
+    credentials: true,
   });
+
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH'],
+    credentials: true,
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Task Board API')
     .setDescription('Task Board API description')
