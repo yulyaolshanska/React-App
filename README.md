@@ -1,3 +1,7 @@
+## Task Manager
+
+### Link to the website: [Click to view website](https://app-task-manager-app.vercel.app/)
+
 ### Create .env file like this in server folder
 
 ```shell
