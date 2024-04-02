@@ -13,7 +13,7 @@ dotenvConfig({ path: '.env' });
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // url: process.env.POSTGRES_URL,
+      url: process.env.POSTGRES_URL,
       host: `${process.env.DATABASE_HOST}`,
       port: +`${process.env.DATABASE_PORT}`,
       username: `${process.env.DATABASE_USERNAME}`,
