@@ -1,4 +1,4 @@
-## Task Manager
+# Task Manager
 
 ## Link to the website: [Click to view website](https://app-task-manager-app.vercel.app/)
 
